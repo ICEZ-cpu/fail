@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Primary 3 First Semestral Review — Maths & English</title>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS & RESET (Zero external dependencies for 100% offline use)
+       ========================================================================== */
+    :root {
+      --bg-page: #f4f7fb;
+      --bg-card: #ffffff;
+      --bg-subtle: #eef3fa;
+      --text-main: #1e293b;
+      --text-muted: #52637a;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-soft: #dbeafe;
+      --accent-english: #7c3aed;
+      --accent-english-soft: #ede9fe;
+      --accent-math: #0284c7;
+      --accent-math-soft: #e0f2fe;
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --warning: #d97706;
+      --warning-soft: #fef3c7;
+      --border: #cbd5e1;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.09);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-bottom: 3rem;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION TABS
+       ========================================================================== */
+    .app-header {
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 55%, #0284c7 100%);
+      color: #ffffff;
+      padding: 1.75rem 1.25rem 2.25rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+
+    .app-header h1 {
+      font-size: clamp(1.45rem, 3.2vw, 2.15rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .app-header p {
+      font-size: clamp(0.92rem, 2vw, 1.05rem);
+      opacity: 0.92;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: -1.45rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      appearance: none;
+      border: 2px solid transparent;
+      background: var(--bg-card);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 48px;
+    }
+
+    .tab-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    /* ==========================================================================
+       SECTIONS & CARDS
+       ========================================================================== */
+    .view-section {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #e2e8f0;
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.65rem;
+    }
+
+    .badge-math {
+      background: var(--accent-math-soft);
+      color: var(--accent-math);
+    }
+
+    .badge-english {
+      background: var(--accent-english-soft);
+      color: var(--accent-english);
+    }
+
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+      color: #0f172a;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin: 1.15rem 0 0.5rem;
+      color: #1e293b;
+    }
+
+    .note-box {
+      background: var(--bg-subtle);
+      border-left: 4px solid var(--primary);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.15rem;
+      margin: 0.75rem 0;
+    }
+
+    .note-box.english-accent {
+      border-left-color: var(--accent-english);
+      background: #f8f5ff;
+    }
+
+    .example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .example-item {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .example-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.35rem;
+      font-size: 0.95rem;
+    }
+
+    .mono-work {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #f8fafc;
+      padding: 0.6rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      margin-top: 0.4rem;
+      border: 1px dashed #cbd5e1;
+      white-space: pre-line;
+    }
+
+    /* Vocabulary Tag Chips */
+    .vocab-group {
+      margin-bottom: 1rem;
+    }
+
+    .vocab-group-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--accent-english);
+      margin-bottom: 0.45rem;
+    }
+
+    .chip-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .vocab-chip {
+      background: var(--accent-english-soft);
+      color: #4c1d95;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid #ddd6fe;
+    }
+
+    .grammar-list {
+      padding-left: 1.25rem;
+    }
+
+    .grammar-list li {
+      margin-bottom: 0.45rem;
+    }
+
+    /* ==========================================================================
+       QUIZ CONTROLS & QUESTION CARDS
+       ========================================================================== */
+    .quiz-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 1rem;
+      align-items: end;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .control-input, .control-select {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      color: var(--text-main);
+      min-height: 46px;
+    }
+
+    .control-input:focus, .control-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.75rem 1.25rem;
+      cursor: pointer;
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      transition: background-color 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: #ffffff;
+      font-size: 1.08rem;
+      padding: 0.95rem 2rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .progress-bar-wrap {
+      background: #e2e8f0;
+      border-radius: 999px;
+      height: 12px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-bar-fill {
+      background: linear-gradient(90deg, #2563eb, #16a34a);
+      height: 100%;
+      width: 0%;
+      transition: width 0.25s ease;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    /* Question Card */
+    .q-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem;
+      margin-bottom: 1.15rem;
+      border: 2px solid #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.2s ease;
+    }
+
+    .q-card.answered {
+      border-color: #93c5fd;
+    }
+
+    .q-card.graded-correct {
+      border-color: var(--success);
+      background: #fafffc;
+    }
+
+    .q-card.graded-wrong {
+      border-color: var(--danger);
+      background: #fffafa;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .q-num {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .q-topic {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.22rem 0.65rem;
+      border-radius: 999px;
+    }
+
+    .q-prompt {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.95rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.65rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.78rem 0.95rem;
+      border: 2px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-weight: 600;
+      background: #ffffff;
+      transition: all 0.15s ease;
+      min-height: 48px;
+      user-select: none;
+    }
+
+    .option-label:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+
+    .option-label input[type="radio"] {
+      accent-color: var(--primary);
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .option-label.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: #1e3a8a;
+    }
+
+    .option-label.correct-choice {
+      border-color: var(--success) !important;
+      background: var(--success-soft) !important;
+      color: #14532d !important;
+    }
+
+    .option-label.wrong-choice {
+      border-color: var(--danger) !important;
+      background: var(--danger-soft) !important;
+      color: #7f1d1d !important;
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 0.9rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      background: #f1f5f9;
+      border-left: 4px solid #64748b;
+    }
+
+    .explanation-box.visible {
+      display: block;
+    }
+
+    .explanation-box.exp-correct {
+      background: var(--success-soft);
+      border-left-color: var(--success);
+      color: #14532d;
+    }
+
+    .explanation-box.exp-wrong {
+      background: var(--danger-soft);
+      border-left-color: var(--danger);
+      color: #7f1d1d;
+    }
+
+    /* ==========================================================================
+       SCOREBOARD MODAL / BANNER
+       ========================================================================== */
+    .score-banner {
+      display: none;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+    }
+
+    .score-banner.visible {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .score-stars {
+      font-size: 2rem;
+      letter-spacing: 0.25rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .score-big {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin: 0.35rem 0;
+    }
+
+    .score-breakdown {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0 1.25rem;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.14);
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .inline-notice {
+      display: none;
+      background: var(--warning-soft);
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .inline-notice.visible {
+      display: block;
+    }
+
+    .submit-bar {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    /* ==========================================================================
+       PRINT STYLES
+       ========================================================================== */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .app-header {
+        background: #ffffff !important;
+        color: #000000 !important;
+        box-shadow: none;
+        border-bottom: 2px solid #000;
+        padding: 0.75rem 0;
+      }
+      .nav-tabs, .quiz-controls, .submit-bar, .progress-bar-wrap, .progress-meta, .btn {
+        display: none !important;
+      }
+      .card, .q-card {
+        box-shadow: none;
+        border: 1px solid #94a3b8;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container">
+      <div style="display:inline-block;background:rgba(255,255,255,0.18);padding:0.25rem 0.85rem;border-radius:999px;font-size:0.8rem;font-weight:800;letter-spacing:0.08em;margin-bottom:0.45rem;">IMPROVE CLASS</div>
+      <h1>Primary 3 First Semestral Review</h1>
+      <p>Interactive Study Module &amp; 100-Question Auto-Scoring Quiz — Mathematics &amp; English</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Mode Switcher Tabs -->
+    <nav class="nav-tabs" aria-label="Module Navigation">
+      <button type="button" class="tab-btn active" id="tabStudy" onclick="switchTab('study')">
+        📖 Study Module
+      </button>
+      <button type="button" class="tab-btn" id="tabQuiz" onclick="switchTab('quiz')">
+        ✏️ Interactive Quiz (Auto-Score)
+      </button>
+      <button type="button" class="tab-btn" onclick="window.print()">
+        🖨️ Print Sheet
+      </button>
+    </nav>
+
+    <!-- ========================================================================
+         VIEW 1: STUDY MODULE
+         ======================================================================== -->
+    <section id="studyView" class="view-section active">
+      <!-- MATHS SECTION 1 -->
+      <article class="card">
+        <span class="section-badge badge-math">Mathematics • Topic 1</span>
+        <h2>Multiplication &amp; Division (2-Digit by 1-Digit)</h2>
+
+        <div class="note-box">
+          <strong>Key Rules to Remember:</strong>
+          <ul class="grammar-list" style="margin-top: 0.4rem;">
+            <li><strong>Written Multiplication:</strong> Multiply the <em>ones</em> digit first, then the <em>tens</em> digit. Regroup (carry) whenever a product is 10 or more.</li>
+            <li><strong>Division with or without Remainders:</strong> Divide starting from the tens digit on the left. Any leftover amount smaller than the divisor is written as <strong>R</strong> (Remainder).</li>
+            <li><strong>Checking Division:</strong> <code>(Quotient × Divisor) + Remainder = Dividend</code></li>
+            <li><strong>Two-Step Word Problems:</strong> Solve Step 1 to find the hidden helper number, then use that answer in Step 2.</li>
+          </ul>
+        </div>
+
+        <div class="example-grid">
+          <div class="example-item">
+            <div class="example-title">Example A: Written Multiplication</div>
+            <div>Find <strong>28 × 4</strong>:</div>
+            <div class="mono-work">1. Ones: 8 × 4 = 32 (write 2, carry 3)
+2. Tens: (2 × 4) + 3 = 11 tens
+Answer = 112</div>
+          </div>
+
+          <div class="example-item">
+            <div class="example-title">Example B: Division with Remainder</div>
+            <div>Find <strong>74 ÷ 3</strong>:</div>
+            <div class="mono-work">1. Tens: 7 ÷ 3 = 2 remainder 1
+2. Bring down 4 → 14 ÷ 3 = 4 R 2
+Answer = 24 R 2  (24 × 3 + 2 = 74)</div>
+          </div>
+
+          <div class="example-item">
+            <div class="example-title">Example C: Two-Step Word Problem</div>
+            <div>3 boxes hold 24 cupcakes each. 19 are sold. How many are left?</div>
+            <div class="mono-work">Step 1: 24 × 3 = 72 cupcakes total
+Step 2: 72 − 19 = 53 cupcakes left</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- MATHS SECTION 2 -->
+      <article class="card">
+        <span class="section-badge badge-math">Mathematics • Topic 2</span>
+        <h2>Money (Dollars and Cents)</h2>
+
+        <div class="note-box">
+          <strong>Key Rules for Money:</strong>
+          <ul class="grammar-list" style="margin-top: 0.4rem;">
+            <li><strong>$1.00 = 100 cents</strong>. Always line up the decimal dots vertically when adding or subtracting.</li>
+            <li>Write two digits after the decimal point for cents (for example, <strong>$4.05</strong>, not $4.5).</li>
+            <li>To find <strong>change</strong>, subtract the total cost from the amount paid.</li>
+          </ul>
+        </div>
+
+        <div class="example-grid">
+          <div class="example-item">
+            <div class="example-title">Example D: Adding Money</div>
+            <div><strong>$14.35 + $8.25</strong></div>
+            <div class="mono-work">  $14.35
++  $8.25
+--------
+  $22.60</div>
+          </div>
+
+          <div class="example-item">
+            <div class="example-title">Example E: Subtracting &amp; Change</div>
+            <div>Buy items for $11.25. Pay with $20.00:</div>
+            <div class="mono-work">  $20.00
+− $11.25
+--------
+   $8.75 change</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ENGLISH SECTION 1: VOCABULARY -->
+      <article class="card">
+        <span class="section-badge badge-english">English • Vocabulary Bank</span>
+        <h2>Complete 35-Word Semestral Vocabulary Reference</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          Review all 35 target words with kid-friendly definitions and sentence examples:
+        </p>
+
+        <div class="vocab-group">
+          <div class="vocab-group-title">1. Texture &amp; Appearance (7 Words)</div>
+          <div class="example-grid">
+            <div class="example-item"><strong>smooth</strong> — flat and even without bumps (<em>Glass feels smooth.</em>)</div>
+            <div class="example-item"><strong>rough</strong> — uneven, bumpy, or scratchy (<em>Tree bark feels rough.</em>)</div>
+            <div class="example-item"><strong>beautiful</strong> — very pretty or pleasing to look at (<em>The rainbow looks beautiful.</em>)</div>
+            <div class="example-item"><strong>ugly</strong> — unpleasant or not nice to look at (<em>The monster mask looks ugly.</em>)</div>
+            <div class="example-item"><strong>sticky</strong> — able to glue or cling to things (<em>Honey and tree sap feel sticky.</em>)</div>
+            <div class="example-item"><strong>hard</strong> — firm and solid, not easy to bend or press (<em>A rock is very hard.</em>)</div>
+            <div class="example-item"><strong>soft</strong> — gentle, fluffy, and easy to press (<em>A pillow feels soft.</em>)</div>
+          </div>
+        </div>
+
+        <div class="vocab-group">
+          <div class="vocab-group-title">2. Taste, Smell &amp; Sound (9 Words)</div>
+          <div class="example-grid">
+            <div class="example-item"><strong>delicious</strong> — tasting or smelling very good (<em>The baked cake smells delicious.</em>)</div>
+            <div class="example-item"><strong>terrible</strong> — very bad or unpleasant (<em>Rotten eggs smell terrible.</em>)</div>
+            <div class="example-item"><strong>sour</strong> — having a sharp, tangy taste like lemon (<em>Unripe mangoes taste sour.</em>)</div>
+            <div class="example-item"><strong>sweet</strong> — tasting like sugar or honey (<em>Ripe strawberries taste sweet.</em>)</div>
+            <div class="example-item"><strong>bitter</strong> — having a sharp, unsweet taste like dark cocoa (<em>Bitter gourd tastes bitter.</em>)</div>
+            <div class="example-item"><strong>salty</strong> — tasting of salt like ocean water (<em>Potato chips taste salty.</em>)</div>
+            <div class="example-item"><strong>spicy</strong> — having a hot flavor from chili or pepper (<em>Curry tastes spicy.</em>)</div>
+            <div class="example-item"><strong>quiet</strong> — making very little or no noise (<em>Please stay quiet in the library.</em>)</div>
+            <div class="example-item"><strong>loud</strong> — making a strong, noisy sound (<em>Thunder sounds very loud.</em>)</div>
+          </div>
+        </div>
+
+        <div class="vocab-group">
+          <div class="vocab-group-title">3. Habitats, Nature &amp; Animal Homes (14 Words)</div>
+          <div class="example-grid">
+            <div class="example-item"><strong>forest</strong> — a large area thick with trees (<em>Deer live in the forest.</em>)</div>
+            <div class="example-item"><strong>wetlands</strong> — soggy land covered with shallow water (<em>Frogs thrive in wetlands.</em>)</div>
+            <div class="example-item"><strong>grasslands</strong> — wide open fields covered with grass (<em>Zebras graze on grasslands.</em>)</div>
+            <div class="example-item"><strong>web</strong> — a sticky silk net spun by a spider (<em>A spider traps flies in its web.</em>)</div>
+            <div class="example-item"><strong>desert</strong> — a hot, dry, sandy place with little rain (<em>Camels cross the desert.</em>)</div>
+            <div class="example-item"><strong>ice</strong> — frozen solid water (<em>Penguins walk across the ice.</em>)</div>
+            <div class="example-item"><strong>hive</strong> — a home where bees live and make honey (<em>Bees return to their hive.</em>)</div>
+            <div class="example-item"><strong>cave</strong> — a natural hollow space inside a hill or cliff (<em>Bats sleep inside a dark cave.</em>)</div>
+            <div class="example-item"><strong>underground</strong> — beneath the surface of the ground (<em>Earthworms tunnel underground.</em>)</div>
+            <div class="example-item"><strong>mud</strong> — soft, wet earth mixed with water (<em>Hippos cool off in the mud.</em>)</div>
+            <div class="example-item"><strong>rain forest</strong> — a warm, wet forest with tall trees and heavy rain (<em>Parrots live in the rain forest.</em>)</div>
+            <div class="example-item"><strong>island</strong> — land completely surrounded by water (<em>We took a boat to the island.</em>)</div>
+            <div class="example-item"><strong>nest</strong> — a cozy home built by birds for eggs (<em>The robin laid eggs in its nest.</em>)</div>
+            <div class="example-item"><strong>snow</strong> — soft white ice flakes falling in cold weather (<em>Children build a snowman in the snow.</em>)</div>
+          </div>
+        </div>
+
+        <div class="vocab-group">
+          <div class="vocab-group-title">4. Animal Body Parts (5 Words)</div>
+          <div class="example-grid">
+            <div class="example-item"><strong>pouch</strong> — a pocket of skin on a kangaroo's belly (<em>A joey rides in its mother's pouch.</em>)</div>
+            <div class="example-item"><strong>horns</strong> — hard pointed growths on an animal's head (<em>Goats and bulls have horns.</em>)</div>
+            <div class="example-item"><strong>wings</strong> — body parts used by birds, bats, and insects to fly (<em>Eagles spread their wide wings.</em>)</div>
+            <div class="example-item"><strong>fur</strong> — thick soft hair covering mammals (<em>Rabbits have warm, soft fur.</em>)</div>
+            <div class="example-item"><strong>tongue</strong> — the movable muscle inside the mouth used to taste or catch insects (<em>A frog catches flies with its long tongue.</em>)</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ENGLISH SECTION 2: GRAMMAR -->
+      <article class="card">
+        <span class="section-badge badge-english">English • Grammar Rules</span>
+        <h2>Grammar Review &amp; Sentence Patterns</h2>
+
+        <div class="example-grid">
+          <div class="note-box english-accent">
+            <strong>1. Linking Verbs (taste, sound, smell, look, feel)</strong>
+            <p style="margin-top: 0.35rem; font-size: 0.94rem;">
+              Linking verbs connect a subject to an adjective describing how it seems to our senses. Add <strong>-s</strong> for singular subjects in the present tense:
+            </p>
+            <ul class="grammar-list" style="margin-top: 0.35rem; font-size: 0.92rem;">
+              <li>The lemon <strong>tastes</strong> sour.</li>
+              <li>Those drums <strong>sound</strong> loud.</li>
+              <li>The silk scarf <strong>feels</strong> smooth.</li>
+            </ul>
+          </div>
+
+          <div class="note-box english-accent">
+            <strong>2. Past Tense: was &amp; were</strong>
+            <p style="margin-top: 0.35rem; font-size: 0.94rem;">
+              Use <strong>was</strong> for one person/thing; use <strong>were</strong> for more than one (and with <em>you</em>):
+            </p>
+            <ul class="grammar-list" style="margin-top: 0.35rem; font-size: 0.92rem;">
+              <li>The bear <strong>was</strong> inside the cave.</li>
+              <li>We <strong>were</strong> at the rain forest yesterday.</li>
+            </ul>
+          </div>
+
+          <div class="note-box english-accent">
+            <strong>3. Cause &amp; Effect: why &amp; because</strong>
+            <ul class="grammar-list" style="margin-top: 0.35rem; font-size: 0.92rem;">
+              <li><strong>Why</strong> asks for a reason: <em>"Why is the ground muddy?"</em></li>
+              <li><strong>Because</strong> gives the reason: <em>"It is muddy because it rained."</em></li>
+            </ul>
+          </div>
+
+          <div class="note-box english-accent">
+            <strong>4. to-Infinitive for Purpose (to + base verb)</strong>
+            <p style="margin-top: 0.35rem; font-size: 0.94rem;">
+              Explains the goal or purpose of an action:
+            </p>
+            <ul class="grammar-list" style="margin-top: 0.35rem; font-size: 0.92rem;">
+              <li>Bees fly to flowers <strong>to collect</strong> nectar.</li>
+              <li>We wear thick coats <strong>to stay</strong> warm in the snow.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 1.25rem;">
+          <button type="button" class="btn btn-primary" onclick="switchTab('quiz')">
+            Ready to Practice? Go to Interactive Quiz →
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <!-- ========================================================================
+         VIEW 2: INTERACTIVE AUTO-SCORING QUIZ
+         ======================================================================== -->
+    <section id="quizView" class="view-section">
+      <!-- Quiz Setup & Filter Bar -->
+      <div class="card">
+        <div class="quiz-controls">
+          <div class="control-group">
+            <label for="studentName">Student Name</label>
+            <input type="text" id="studentName" class="control-input" placeholder="e.g., Charise" />
+          </div>
+
+          <div class="control-group">
+            <label for="subjectFilter">Subject Filter</label>
+            <select id="subjectFilter" class="control-select" onchange="initQuiz()">
+              <option value="ALL">All Subjects (50 Maths + 50 English — 100 Qs)</option>
+              <option value="MATH">Mathematics Only (50 Qs)</option>
+              <option value="ENGLISH">English Only (50 Qs)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <button type="button" class="btn btn-secondary" style="width: 100%;" onclick="initQuiz()">
+              🔀 Try Again / Reshuffle
+            </button>
+          </div>
+        </div>
+
+        <!-- Live Progress Bar -->
+        <div class="progress-bar-wrap" aria-hidden="true">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-meta">
+          <span id="progressText">Answered: 0 / 100</span>
+          <span id="liveScoreText" style="color: var(--primary);">Live Score: 0 / 0 (0%)</span>
+          <span id="quizStatusLabel">Status: Instant Feedback Mode</span>
+        </div>
+      </div>
+
+      <!-- Score Banner (Hidden until graded) -->
+      <div id="scoreBanner" class="score-banner" role="region" aria-live="polite">
+        <div class="score-stars" id="scoreStars">⭐⭐⭐⭐⭐</div>
+        <div id="scoreStudentLine" style="font-size: 1.1rem; font-weight: 700; opacity: 0.95;">Great effort!</div>
+        <div class="score-big" id="scoreBig">0 / 28 (0%)</div>
+        <p id="scoreMessage" style="max-width: 580px; margin: 0.25rem auto 0; opacity: 0.92;"></p>
+
+        <div class="score-breakdown" id="scoreBreakdown"></div>
+
+        <button type="button" class="btn btn-primary" onclick="initQuiz()">
+          🔄 Try Another Shuffled Round
+        </button>
+      </div>
+
+      <!-- Validation Notice (Replaces alert()) -->
+      <div id="inlineNotice" class="inline-notice" role="alert"></div>
+
+      <!-- Questions Container -->
+      <form id="quizForm" onsubmit="event.preventDefault(); gradeQuiz();">
+        <div id="questionsContainer"></div>
+
+        <div class="submit-bar">
+          <button type="submit" class="btn btn-success" id="submitBtn">
+            🏆 View Final Report Card
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="initQuiz()">
+            🔀 Try Again / Reshuffle
+          </button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    /* ==========================================================================
+       COMPLETE 100-QUESTION BANK (50 MATHS + 50 ENGLISH)
+       ========================================================================== */
+    const QUESTION_BANK = [
+      // --- MATHS: MULTIPLICATION (15 QUESTIONS) ---
+      { id: "m1", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 24 × 3 =", options: ["62", "72", "82", "67"], answer: "72", explanation: "Ones: 4 × 3 = 12 (write 2, carry 1). Tens: (2 × 3) + 1 = 7. Answer: 72." },
+      { id: "m2", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 36 × 4 =", options: ["124", "134", "144", "154"], answer: "144", explanation: "Ones: 6 × 4 = 24 (write 4, carry 2). Tens: (3 × 4) + 2 = 14. Answer: 144." },
+      { id: "m3", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 47 × 6 =", options: ["242", "272", "282", "292"], answer: "282", explanation: "Ones: 7 × 6 = 42 (write 2, carry 4). Tens: (4 × 6) + 4 = 28. Answer: 282." },
+      { id: "m4", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 85 × 3 =", options: ["245", "255", "265", "235"], answer: "255", explanation: "Ones: 5 × 3 = 15 (write 5, carry 1). Tens: (8 × 3) + 1 = 25. Answer: 255." },
+      { id: "m5", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 19 × 5 =", options: ["85", "90", "95", "105"], answer: "95", explanation: "Ones: 9 × 5 = 45 (write 5, carry 4). Tens: (1 × 5) + 4 = 9. Answer: 95." },
+      { id: "m6", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 53 × 4 =", options: ["202", "212", "222", "192"], answer: "212", explanation: "Ones: 3 × 4 = 12 (write 2, carry 1). Tens: (5 × 4) + 1 = 21. Answer: 212." },
+      { id: "m7", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 68 × 2 =", options: ["126", "136", "146", "116"], answer: "136", explanation: "Ones: 8 × 2 = 16 (write 6, carry 1). Tens: (6 × 2) + 1 = 13. Answer: 136." },
+      { id: "m8", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 74 × 5 =", options: ["350", "360", "370", "380"], answer: "370", explanation: "Ones: 4 × 5 = 20 (write 0, carry 2). Tens: (7 × 5) + 2 = 37. Answer: 370." },
+      { id: "m9", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 29 × 7 =", options: ["193", "203", "213", "183"], answer: "203", explanation: "Ones: 9 × 7 = 63 (write 3, carry 6). Tens: (2 × 7) + 6 = 20. Answer: 203." },
+      { id: "m10", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 64 × 8 =", options: ["492", "502", "512", "522"], answer: "512", explanation: "Ones: 4 × 8 = 32 (write 2, carry 3). Tens: (6 × 8) + 3 = 51. Answer: 512." },
+      { id: "m11", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 38 × 9 =", options: ["332", "342", "352", "312"], answer: "342", explanation: "Ones: 8 × 9 = 72 (write 2, carry 7). Tens: (3 × 9) + 7 = 34. Answer: 342." },
+      { id: "m12", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 92 × 4 =", options: ["368", "358", "378", "348"], answer: "368", explanation: "Ones: 2 × 4 = 8. Tens: 9 × 4 = 36. Answer: 368." },
+      { id: "m13", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 45 × 6 =", options: ["240", "260", "270", "280"], answer: "270", explanation: "Ones: 5 × 6 = 30 (write 0, carry 3). Tens: (4 × 6) + 3 = 27. Answer: 270." },
+      { id: "m14", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 76 × 3 =", options: ["218", "228", "238", "208"], answer: "228", explanation: "Ones: 6 × 3 = 18 (write 8, carry 1). Tens: (7 × 3) + 1 = 22. Answer: 228." },
+      { id: "m15", subject: "MATH", topic: "Multiplication", prompt: "Calculate: 57 × 8 =", options: ["446", "456", "466", "436"], answer: "456", explanation: "Ones: 7 × 8 = 56 (write 6, carry 5). Tens: (5 × 8) + 5 = 45. Answer: 456." },
+
+      // --- MATHS: DIVISION WITH & WITHOUT REMAINDERS (15 QUESTIONS) ---
+      { id: "m16", subject: "MATH", topic: "Division", prompt: "Divide: 64 ÷ 4 =", options: ["14", "15", "16", "18"], answer: "16", explanation: "6 tens ÷ 4 = 1 ten R 2. Bring down 4 → 24 ÷ 4 = 6. Answer: 16." },
+      { id: "m17", subject: "MATH", topic: "Division", prompt: "Divide: 83 ÷ 5 =", options: ["16 R 2", "16 R 3", "15 R 3", "17 R 2"], answer: "16 R 3", explanation: "16 × 5 = 80, and 83 − 80 = 3 left over. Answer: 16 R 3." },
+      { id: "m18", subject: "MATH", topic: "Division", prompt: "Divide: 95 ÷ 7 =", options: ["13 R 4", "13 R 2", "14 R 1", "12 R 5"], answer: "13 R 4", explanation: "13 × 7 = 91, and 95 − 91 = 4 left over. Answer: 13 R 4." },
+      { id: "m19", subject: "MATH", topic: "Division", prompt: "Divide: 78 ÷ 6 =", options: ["12", "13", "14", "13 R 2"], answer: "13", explanation: "7 ÷ 6 = 1 R 1. Bring down 8 → 18 ÷ 6 = 3. Answer: 13." },
+      { id: "m20", subject: "MATH", topic: "Division", prompt: "Divide: 59 ÷ 4 =", options: ["14 R 1", "14 R 2", "14 R 3", "15 R 1"], answer: "14 R 3", explanation: "14 × 4 = 56, and 59 − 56 = 3 remainder. Answer: 14 R 3." },
+      { id: "m21", subject: "MATH", topic: "Division", prompt: "Divide: 84 ÷ 3 =", options: ["26", "27", "28", "29"], answer: "28", explanation: "8 ÷ 3 = 2 R 2. Bring down 4 → 24 ÷ 3 = 8. Answer: 28." },
+      { id: "m22", subject: "MATH", topic: "Division", prompt: "Divide: 91 ÷ 8 =", options: ["11 R 3", "11 R 2", "11 R 4", "12 R 1"], answer: "11 R 3", explanation: "11 × 8 = 88, and 91 − 88 = 3 remainder. Answer: 11 R 3." },
+      { id: "m23", subject: "MATH", topic: "Division", prompt: "Divide: 72 ÷ 6 =", options: ["11", "12", "13", "14"], answer: "12", explanation: "7 ÷ 6 = 1 R 1. Bring down 2 → 12 ÷ 6 = 2. Answer: 12." },
+      { id: "m24", subject: "MATH", topic: "Division", prompt: "Divide: 67 ÷ 5 =", options: ["13 R 1", "13 R 2", "12 R 2", "14 R 2"], answer: "13 R 2", explanation: "13 × 5 = 65, and 67 − 65 = 2 remainder. Answer: 13 R 2." },
+      { id: "m25", subject: "MATH", topic: "Division", prompt: "Divide: 96 ÷ 4 =", options: ["22", "23", "24", "26"], answer: "24", explanation: "9 ÷ 4 = 2 R 1. Bring down 6 → 16 ÷ 4 = 4. Answer: 24." },
+      { id: "m26", subject: "MATH", topic: "Division", prompt: "Divide: 89 ÷ 7 =", options: ["12 R 5", "12 R 4", "13 R 2", "11 R 6"], answer: "12 R 5", explanation: "12 × 7 = 84, and 89 − 84 = 5 remainder. Answer: 12 R 5." },
+      { id: "m27", subject: "MATH", topic: "Division", prompt: "Divide: 75 ÷ 5 =", options: ["13", "14", "15", "16"], answer: "15", explanation: "7 ÷ 5 = 1 R 2. Bring down 5 → 25 ÷ 5 = 5. Answer: 15." },
+      { id: "m28", subject: "MATH", topic: "Division", prompt: "Divide: 98 ÷ 9 =", options: ["10 R 8", "11 R 1", "10 R 7", "10 R 9"], answer: "10 R 8", explanation: "10 × 9 = 90, and 98 − 90 = 8 remainder. Answer: 10 R 8." },
+      { id: "m29", subject: "MATH", topic: "Division", prompt: "Divide: 87 ÷ 4 =", options: ["21 R 3", "21 R 2", "22 R 1", "20 R 3"], answer: "21 R 3", explanation: "21 × 4 = 84, and 87 − 84 = 3 remainder. Answer: 21 R 3." },
+      { id: "m30", subject: "MATH", topic: "Division", prompt: "What is the remainder when 79 is divided by 6?", options: ["1", "2", "3", "4"], answer: "1", explanation: "13 × 6 = 78, and 79 − 78 = 1. So the remainder is 1." },
+
+      // --- MATHS: TWO-STEP WORD PROBLEMS (10 QUESTIONS) ---
+      { id: "m31", subject: "MATH", topic: "Two-Step Word Problems", prompt: "A bakery packs 24 cupcakes per box. It makes 3 boxes and sells 19 cupcakes. How many cupcakes are left?", options: ["53", "63", "43", "72"], answer: "53", explanation: "Step 1: 24 × 3 = 72 cupcakes. Step 2: 72 − 19 = 53 cupcakes left." },
+      { id: "m32", subject: "MATH", topic: "Two-Step Word Problems", prompt: "Liam has 45 stickers and Maya has 39 stickers. They combine them and share equally among 4 friends. How many does each friend get?", options: ["19", "20", "21", "22"], answer: "21", explanation: "Step 1: 45 + 39 = 84 stickers. Step 2: 84 ÷ 4 = 21 stickers each." },
+      { id: "m33", subject: "MATH", topic: "Two-Step Word Problems", prompt: "A farmer picks 65 apples and throws away 9 bruised ones. He packs the rest equally into 4 baskets. How many apples go into each basket?", options: ["12", "13", "14", "16"], answer: "14", explanation: "Step 1: 65 − 9 = 56 good apples. Step 2: 56 ÷ 4 = 14 apples per basket." },
+      { id: "m34", subject: "MATH", topic: "Two-Step Word Problems", prompt: "There are 6 rows of chairs with 14 chairs in each row. If 18 more chairs are added, how many chairs are there now?", options: ["84", "92", "102", "112"], answer: "102", explanation: "Step 1: 14 × 6 = 84 chairs. Step 2: 84 + 18 = 102 chairs." },
+      { id: "m35", subject: "MATH", topic: "Two-Step Word Problems", prompt: "Sofia reads 18 pages each day for 5 days. Her book has 120 pages. How many pages does she still need to read?", options: ["20", "30", "40", "90"], answer: "30", explanation: "Step 1: 18 × 5 = 90 pages read. Step 2: 120 − 90 = 30 pages left." },
+      { id: "m36", subject: "MATH", topic: "Two-Step Word Problems", prompt: "A shop has 96 pencils. It sells 24 pencils and packs the rest into boxes of 6. How many boxes are filled?", options: ["10", "11", "12", "14"], answer: "12", explanation: "Step 1: 96 − 24 = 72 pencils left. Step 2: 72 ÷ 6 = 12 boxes." },
+      { id: "m37", subject: "MATH", topic: "Two-Step Word Problems", prompt: "Ben has 3 bags of 25 marbles and 17 loose marbles. How many marbles does Ben have altogether?", options: ["75", "82", "92", "102"], answer: "92", explanation: "Step 1: 25 × 3 = 75 marbles. Step 2: 75 + 17 = 92 marbles." },
+      { id: "m38", subject: "MATH", topic: "Two-Step Word Problems", prompt: "85 children go on a field trip. 13 children ride in a van, and the rest ride equally in 4 buses. How many children are on each bus?", options: ["16", "17", "18", "19"], answer: "18", explanation: "Step 1: 85 − 13 = 72 children for buses. Step 2: 72 ÷ 4 = 18 children per bus." },
+      { id: "m39", subject: "MATH", topic: "Two-Step Word Problems", prompt: "Mrs. Tan bakes 48 cookies in the morning and 37 cookies in the afternoon. She puts them in packs of 5. How many full packs does she make?", options: ["15", "16", "17", "18"], answer: "17", explanation: "Step 1: 48 + 37 = 85 cookies. Step 2: 85 ÷ 5 = 17 full packs." },
+      { id: "m40", subject: "MATH", topic: "Two-Step Word Problems", prompt: "A ribbon is 90 cm long. Anna cuts 4 pieces that are each 16 cm long. How much ribbon is left?", options: ["24 cm", "26 cm", "36 cm", "64 cm"], answer: "26 cm", explanation: "Step 1: 16 × 4 = 64 cm cut. Step 2: 90 − 64 = 26 cm remaining." },
+
+      // --- MATHS: MONEY — DOLLARS & CENTS (10 QUESTIONS) ---
+      { id: "m41", subject: "MATH", topic: "Money", prompt: "Add: $14.35 + $8.25 =", options: ["$22.50", "$22.60", "$23.60", "$21.60"], answer: "$22.60", explanation: "$14.35 + $8.25 = $22.60 (35¢ + 25¢ = 60¢; $14 + $8 = $22)." },
+      { id: "m42", subject: "MATH", topic: "Money", prompt: "Subtract: $30.00 − $12.45 =", options: ["$17.55", "$17.65", "$18.55", "$18.45"], answer: "$17.55", explanation: "$30.00 − $12.00 = $18.00; $18.00 − $0.45 = $17.55." },
+      { id: "m43", subject: "MATH", topic: "Money", prompt: "Emma buys a notebook for $6.75 and a pen set for $4.50. She pays with $20.00. How much change does she get?", options: ["$8.75", "$9.25", "$9.75", "$11.25"], answer: "$8.75", explanation: "Step 1: $6.75 + $4.50 = $11.25. Step 2: $20.00 − $11.25 = $8.75 change." },
+      { id: "m44", subject: "MATH", topic: "Money", prompt: "A water bottle costs $9.40, and a lunchbox costs $3.65 more than the bottle. How much do BOTH items cost together?", options: ["$13.05", "$21.45", "$22.45", "$23.45"], answer: "$22.45", explanation: "Step 1: Lunchbox = $9.40 + $3.65 = $13.05. Step 2: Total = $9.40 + $13.05 = $22.45." },
+      { id: "m45", subject: "MATH", topic: "Money", prompt: "Add: $23.60 + $17.95 =", options: ["$40.55", "$41.55", "$41.65", "$42.55"], answer: "$41.55", explanation: "$23.60 + $17.95 = $41.55 (60¢ + 95¢ = $1.55; $23 + $17 + $1.55 = $41.55)." },
+      { id: "m46", subject: "MATH", topic: "Money", prompt: "Subtract: $45.80 − $19.90 =", options: ["$25.90", "$26.90", "$25.10", "$26.10"], answer: "$25.90", explanation: "$45.80 − $20.00 = $25.80; add back $0.10 = $25.90." },
+      { id: "m47", subject: "MATH", topic: "Money", prompt: "How many cents are in $4.08?", options: ["48 cents", "408 cents", "480 cents", "4008 cents"], answer: "408 cents", explanation: "$1.00 = 100 cents, so $4.08 = 400 + 8 = 408 cents." },
+      { id: "m48", subject: "MATH", topic: "Money", prompt: "Noah has $50.00. He buys a backpack for $28.65 and a cap for $11.35. How much money does he have left?", options: ["$9.00", "$10.00", "$10.50", "$11.00"], answer: "$10.00", explanation: "Step 1: $28.65 + $11.35 = $40.00 spent. Step 2: $50.00 − $40.00 = $10.00 left." },
+      { id: "m49", subject: "MATH", topic: "Money", prompt: "A book costs $12.85 and a comic costs $7.45. How much MORE does the book cost than the comic?", options: ["$5.40", "$5.60", "$6.40", "$4.40"], answer: "$5.40", explanation: "$12.85 − $7.45 = $5.40." },
+      { id: "m50", subject: "MATH", topic: "Money", prompt: "Maya saves $6.50 each week for 4 weeks. How much money does she save in total?", options: ["$24.00", "$25.00", "$26.00", "$26.50"], answer: "$26.00", explanation: "$6.00 × 4 = $24.00, and $0.50 × 4 = $2.00. Total = $26.00." },
+
+      // --- ENGLISH: VOCABULARY (22 QUESTIONS COVERING ALL 35 WORDS) ---
+      { id: "e1", subject: "ENGLISH", topic: "Vocabulary", prompt: "A rabbit has soft, warm __________, while a turtle has a hard shell.", options: ["fur", "horns", "tongue", "pouch"], answer: "fur", explanation: "'Fur' is the soft hair covering mammals like rabbits." },
+      { id: "e2", subject: "ENGLISH", topic: "Vocabulary", prompt: "Fresh lemon juice tastes very __________, not sweet.", options: ["sour", "salty", "spicy", "soft"], answer: "sour", explanation: "Lemons have a sharp, acidic taste described as 'sour'." },
+      { id: "e3", subject: "ENGLISH", topic: "Vocabulary", prompt: "A spider spins a sticky __________ to trap flying insects.", options: ["web", "hive", "nest", "cave"], answer: "web", explanation: "Spiders weave a silk 'web' to catch prey." },
+      { id: "e4", subject: "ENGLISH", topic: "Vocabulary", prompt: "Camels can travel for days across the hot, sandy __________.", options: ["desert", "wetlands", "ice", "rain forest"], answer: "desert", explanation: "A 'desert' is a very dry, sandy habitat with little rainfall." },
+      { id: "e5", subject: "ENGLISH", topic: "Vocabulary", prompt: "Birds gather twigs and leaves to build a __________ for their eggs.", options: ["nest", "hive", "pouch", "island"], answer: "nest", explanation: "Birds build a 'nest' to hold and protect their eggs and chicks." },
+      { id: "e6", subject: "ENGLISH", topic: "Vocabulary", prompt: "Please keep your voice __________ while others are reading in the library.", options: ["quiet", "loud", "rough", "bitter"], answer: "quiet", explanation: "'Quiet' means making very little or no noise." },
+      { id: "e7", subject: "ENGLISH", topic: "Vocabulary", prompt: "A mother kangaroo carries her baby joey inside her warm __________.", options: ["pouch", "horns", "wings", "fur"], answer: "pouch", explanation: "Kangaroos have a pocket-like 'pouch' on their belly for carrying their young." },
+      { id: "e8", subject: "ENGLISH", topic: "Vocabulary", prompt: "Bees store golden honey inside their __________.", options: ["hive", "web", "mud", "desert"], answer: "hive", explanation: "A 'hive' is the home where bees live and make honey." },
+      { id: "e9", subject: "ENGLISH", topic: "Vocabulary", prompt: "An __________ is a piece of land completely surrounded by water.", options: ["island", "underground", "grasslands", "cave"], answer: "island", explanation: "An 'island' has water all around it." },
+      { id: "e10", subject: "ENGLISH", topic: "Vocabulary", prompt: "Bats often hang upside down inside a dark __________ during the day.", options: ["cave", "nest", "web", "snow"], answer: "cave", explanation: "A 'cave' is a natural hollow space inside a hill or rock." },
+      { id: "e11", subject: "ENGLISH", topic: "Vocabulary", prompt: "A polished glass marble feels __________, whereas tree bark feels __________.", options: ["smooth / rough", "rough / smooth", "soft / sticky", "loud / quiet"], answer: "smooth / rough", explanation: "Glass is flat and 'smooth', while tree bark is bumpy and 'rough'." },
+      { id: "e12", subject: "ENGLISH", topic: "Vocabulary", prompt: "Honey and tree sap feel very __________ on your fingers.", options: ["sticky", "hard", "quiet", "sour"], answer: "sticky", explanation: "'Sticky' describes something that clings or glues to surfaces." },
+      { id: "e13", subject: "ENGLISH", topic: "Vocabulary", prompt: "Dark unsweetened cocoa and bitter gourd taste __________.", options: ["bitter", "sweet", "salty", "delicious"], answer: "bitter", explanation: "'Bitter' describes a sharp, non-sweet taste like dark cocoa." },
+      { id: "e14", subject: "ENGLISH", topic: "Vocabulary", prompt: "Chili peppers make curry taste very __________.", options: ["spicy", "sweet", "soft", "smooth"], answer: "spicy", explanation: "Chili peppers give food a hot, 'spicy' flavor." },
+      { id: "e15", subject: "ENGLISH", topic: "Vocabulary", prompt: "Ocean water and potato chips taste __________.", options: ["salty", "sweet", "sour", "quiet"], answer: "salty", explanation: "Seawater contains salt, making it taste 'salty'." },
+      { id: "e16", subject: "ENGLISH", topic: "Vocabulary", prompt: "Earthworms and moles dig tunnels __________ beneath the soil.", options: ["underground", "island", "wings", "ice"], answer: "underground", explanation: "'Underground' means below the surface of the ground." },
+      { id: "e17", subject: "ENGLISH", topic: "Vocabulary", prompt: "Frogs and herons live in __________, where the land is soaked with shallow water.", options: ["wetlands", "desert", "snow", "hive"], answer: "wetlands", explanation: "'Wetlands' are marshes and swamps covered with shallow water." },
+      { id: "e18", subject: "ENGLISH", topic: "Vocabulary", prompt: "Zebras and lions roam across wide, open __________.", options: ["grasslands", "ice", "cave", "web"], answer: "grasslands", explanation: "'Grasslands' are wide open areas covered mostly with grass." },
+      { id: "e19", subject: "ENGLISH", topic: "Vocabulary", prompt: "Jaguars, toucans, and monkeys live in the warm, wet __________.", options: ["rain forest", "desert", "ice", "snow"], answer: "rain forest", explanation: "A 'rain forest' is a dense, wet forest with heavy rainfall and tall trees." },
+      { id: "e20", subject: "ENGLISH", topic: "Vocabulary", prompt: "Bulls and mountain goats have two curved __________ on their heads.", options: ["horns", "wings", "pouch", "tongue"], answer: "horns", explanation: "'Horns' are hard, pointed growths on the heads of animals like goats and bulls." },
+      { id: "e21", subject: "ENGLISH", topic: "Vocabulary", prompt: "A chameleon uses its long, fast __________ to catch insects.", options: ["tongue", "horns", "pouch", "fur"], answer: "tongue", explanation: "A chameleon shoots out its sticky 'tongue' to catch bugs." },
+      { id: "e22", subject: "ENGLISH", topic: "Vocabulary", prompt: "Which word is the OPPOSITE of 'beautiful'?", options: ["ugly", "delicious", "terrible", "hard"], answer: "ugly", explanation: "'Ugly' (unpleasant to look at) is the opposite of 'beautiful'." },
+
+      // --- ENGLISH: LINKING VERBS (8 QUESTIONS) ---
+      { id: "e23", subject: "ENGLISH", topic: "Linking Verbs", prompt: "Freshly baked chocolate cookies __________ delicious!", options: ["smell", "sound", "feel", "hear"], answer: "smell", explanation: "We notice baking cookies with our nose, so 'smell' is the best linking verb." },
+      { id: "e24", subject: "ENGLISH", topic: "Linking Verbs", prompt: "That thunder outside __________ very loud.", options: ["sounds", "tastes", "smells", "looks"], answer: "sounds", explanation: "Thunder is heard with our ears, and singular 'thunder' takes 'sounds'." },
+      { id: "e25", subject: "ENGLISH", topic: "Linking Verbs", prompt: "This silk pillow __________ so soft and smooth.", options: ["feels", "tastes", "sounds", "smells"], answer: "feels", explanation: "Texture (soft and smooth) is experienced by touch, so 'feels' fits best." },
+      { id: "e26", subject: "ENGLISH", topic: "Linking Verbs", prompt: "The sunset over the island __________ beautiful tonight.", options: ["looks", "tastes", "sounds", "smells"], answer: "looks", explanation: "We see a sunset with our eyes, so 'looks' is the right linking verb." },
+      { id: "e27", subject: "ENGLISH", topic: "Linking Verbs", prompt: "These ripe strawberries __________ very sweet.", options: ["taste", "tastes", "sound", "sounds"], answer: "taste", explanation: "Plural subject 'strawberries' takes the base linking verb 'taste'." },
+      { id: "e28", subject: "ENGLISH", topic: "Linking Verbs", prompt: "The rotten garbage in the bin __________ terrible.", options: ["smells", "sounds", "feels", "tastes"], answer: "smells", explanation: "Garbage gives off a bad odor, so singular 'garbage' takes 'smells'." },
+      { id: "e29", subject: "ENGLISH", topic: "Linking Verbs", prompt: "Those rocks in the cave __________ hard and rough.", options: ["feel", "feels", "tastes", "sounds"], answer: "feel", explanation: "Plural subject 'rocks' uses 'feel' (without -s) to describe texture." },
+      { id: "e30", subject: "ENGLISH", topic: "Linking Verbs", prompt: "Your new flute music __________ very peaceful and quiet.", options: ["sounds", "smells", "tastes", "feels"], answer: "sounds", explanation: "Music is heard, so singular 'music' takes 'sounds'." },
+
+      // --- ENGLISH: WAS AND WERE (7 QUESTIONS) ---
+      { id: "e31", subject: "ENGLISH", topic: "was & were", prompt: "Yesterday, our class __________ at the rain forest park.", options: ["was", "were", "are", "be"], answer: "was", explanation: "'Our class' is a singular collective noun, so we use 'was'." },
+      { id: "e32", subject: "ENGLISH", topic: "was & were", prompt: "The polar bears __________ walking across the thick ice.", options: ["were", "was", "is", "am"], answer: "were", explanation: "'Polar bears' is plural, so the past tense verb is 'were'." },
+      { id: "e33", subject: "ENGLISH", topic: "was & were", prompt: "Why __________ you late for school this morning?", options: ["were", "was", "is", "am"], answer: "were", explanation: "The pronoun 'you' always pairs with 'were' in the past tense." },
+      { id: "e34", subject: "ENGLISH", topic: "was & were", prompt: "The ground __________ covered in deep white snow last winter.", options: ["was", "were", "are", "be"], answer: "was", explanation: "'The ground' is singular, so we use 'was'." },
+      { id: "e35", subject: "ENGLISH", topic: "was & were", prompt: "There __________ three baby birds inside the nest.", options: ["were", "was", "is", "has"], answer: "were", explanation: "'Three baby birds' is plural, so 'There were' is correct." },
+      { id: "e36", subject: "ENGLISH", topic: "was & were", prompt: "I __________ very happy when I saw the rainbow.", options: ["was", "were", "are", "be"], answer: "was", explanation: "With 'I', the past tense of 'to be' is 'was'." },
+      { id: "e37", subject: "ENGLISH", topic: "was & were", prompt: "My boots __________ covered in sticky mud after the hike.", options: ["were", "was", "is", "am"], answer: "were", explanation: "'My boots' is plural, so we use 'were'." },
+
+      // --- ENGLISH: WHY AND BECAUSE (7 QUESTIONS) ---
+      { id: "e38", subject: "ENGLISH", topic: "why & because", prompt: "The path was slippery and muddy __________ it rained all night.", options: ["because", "why", "where", "who"], answer: "because", explanation: "'Because' introduces the cause/reason why the path was muddy." },
+      { id: "e39", subject: "ENGLISH", topic: "why & because", prompt: "__________ did the bear go deep inside the cave?", options: ["Why", "Because", "What", "Which"], answer: "Why", explanation: "'Why' is used at the start of a question asking for a reason." },
+      { id: "e40", subject: "ENGLISH", topic: "why & because", prompt: "Penguins have thick feathers and fat __________ they live on freezing ice.", options: ["because", "why", "whose", "when"], answer: "because", explanation: "'Because' explains the reason penguins need thick feathers and fat." },
+      { id: "e41", subject: "ENGLISH", topic: "why & because", prompt: "I drank two glasses of cold water __________ the curry was very spicy.", options: ["because", "why", "which", "where"], answer: "because", explanation: "'Because' connects the effect (drinking water) to its cause (spicy curry)." },
+      { id: "e42", subject: "ENGLISH", topic: "why & because", prompt: "Can you tell me __________ the baby kangaroo stays in the pouch?", options: ["why", "because", "who", "whose"], answer: "why", explanation: "'Why' asks for the reason in an indirect question." },
+      { id: "e43", subject: "ENGLISH", topic: "why & because", prompt: "We wore sunglasses in the desert __________ the sun was very bright.", options: ["because", "why", "what", "who"], answer: "because", explanation: "'Because' gives the reason for wearing sunglasses." },
+      { id: "e44", subject: "ENGLISH", topic: "why & because", prompt: "__________ were the students so quiet in the hall?", options: ["Why", "Because", "Where", "Whose"], answer: "Why", explanation: "'Why' is used to ask for the reason the students were quiet." },
+
+      // --- ENGLISH: TO-INFINITIVE FOR PURPOSE (6 QUESTIONS) ---
+      { id: "e45", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "Owls fly silently at night __________ small mice for food.", options: ["to catch", "catching", "caught", "catches"], answer: "to catch", explanation: "'to catch' (to + base verb) shows the purpose of flying silently." },
+      { id: "e46", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "People wear thick coats in the snow __________ warm.", options: ["to stay", "stayed", "staying", "stays"], answer: "to stay", explanation: "'to stay' explains the purpose of wearing thick coats." },
+      { id: "e47", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "Bees visit bright flowers __________ sweet nectar.", options: ["to collect", "collected", "collects", "collecting"], answer: "to collect", explanation: "Use 'to + base verb' ('to collect') to state why bees visit flowers." },
+      { id: "e48", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "Birds use their strong wings __________ across the ocean to the island.", options: ["to fly", "flew", "flying", "flies"], answer: "to fly", explanation: "'to fly' expresses the purpose of using their wings." },
+      { id: "e49", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "We brought a bright flashlight __________ the dark cave.", options: ["to explore", "explored", "exploring", "explores"], answer: "to explore", explanation: "'to explore' tells the purpose of bringing the flashlight." },
+      { id: "e50", subject: "ENGLISH", topic: "to-Infinitive (Purpose)", prompt: "Spiders spin sticky webs __________ insects for dinner.", options: ["to trap", "trapped", "trapping", "traps"], answer: "to trap", explanation: "'to trap' (to + base verb) states the purpose of spinning webs." }
+    ];
+
+    /* ==========================================================================
+       STATE & UTILITIES
+       ========================================================================== */
+    let activeQuestions = [];
+    let isGraded = false;
+    let instantAnsweredCount = 0;
+    let instantCorrectCount = 0;
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /* ==========================================================================
+       VIEW NAVIGATION (Globally attached for inline onclick handlers)
+       ========================================================================== */
+    window.switchTab = function(tabName) {
+      const studyView = document.getElementById("studyView");
+      const quizView = document.getElementById("quizView");
+      const tabStudy = document.getElementById("tabStudy");
+      const tabQuiz = document.getElementById("tabQuiz");
+
+      if (tabName === "study") {
+        studyView.classList.add("active");
+        quizView.classList.remove("active");
+        tabStudy.classList.add("active");
+        tabQuiz.classList.remove("active");
+      } else {
+        quizView.classList.add("active");
+        studyView.classList.remove("active");
+        tabQuiz.classList.add("active");
+        tabStudy.classList.remove("active");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    /* ==========================================================================
+       QUIZ INITIALIZATION & RENDERING
+       ========================================================================== */
+    window.initQuiz = function() {
+      isGraded = false;
+      instantAnsweredCount = 0;
+      instantCorrectCount = 0;
+      const filter = document.getElementById("subjectFilter").value;
+      const filtered = filter === "ALL"
+        ? QUESTION_BANK
+        : QUESTION_BANK.filter(q => q.subject === filter);
+
+      activeQuestions = shuffleArray(filtered).map(q => ({
+        ...q,
+        shuffledOptions: shuffleArray(q.options)
+      }));
+
+      document.getElementById("scoreBanner").classList.remove("visible");
+      hideNotice();
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "1";
+      document.getElementById("quizStatusLabel").textContent = "Status: Instant Feedback Mode";
+
+      renderQuestions();
+      updateProgress();
+    };
+
+    function renderQuestions() {
+      const container = document.getElementById("questionsContainer");
+      const letters = ["A", "B", "C", "D"];
+
+      container.innerHTML = activeQuestions.map((q, index) => {
+        const badgeClass = q.subject === "MATH" ? "badge-math" : "badge-english";
+        const subjectLabel = q.subject === "MATH" ? "Maths" : "English";
+
+        const optionsHtml = q.shuffledOptions.map((opt, optIdx) => {
+          const inputId = `q_${q.id}_opt_${optIdx}`;
+          return `
+            <label class="option-label" for="${inputId}" id="lbl-${inputId}">
+              <input
+                type="radio"
+                id="${inputId}"
+                name="q_${q.id}"
+                value="${escapeHtml(opt)}"
+                onchange="handleOptionSelect('${q.id}', '${inputId}')"
+              />
+              <span><strong>${letters[optIdx]}.</strong> ${escapeHtml(opt)}</span>
+            </label>
+          `;
+        }).join("");
+
+        return `
+          <div class="q-card" id="card-${q.id}" data-answered="false">
+            <div class="q-header">
+              <span class="q-num">Question ${index + 1} of ${activeQuestions.length}</span>
+              <span class="q-topic ${badgeClass}">${subjectLabel} • ${escapeHtml(q.topic)}</span>
+            </div>
+            <div class="q-prompt">${escapeHtml(q.prompt)}</div>
+            <div class="options-grid">
+              ${optionsHtml}
+            </div>
+            <div class="explanation-box" id="exp-${q.id}"></div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.handleOptionSelect = function(qId, selectedInputId) {
+      const card = document.getElementById(`card-${qId}`);
+      if (!card || card.dataset.answered === "true") return;
+
+      const question = activeQuestions.find(item => item.id === qId);
+      const selectedInput = document.getElementById(selectedInputId);
+      if (!question || !selectedInput) return;
+
+      card.dataset.answered = "true";
+      card.classList.add("answered");
+
+      const userVal = selectedInput.value;
+      const isRight = userVal === question.answer;
+      const expBox = document.getElementById(`exp-${qId}`);
+      const inputs = card.querySelectorAll(`input[name="q_${qId}"]`);
+
+      instantAnsweredCount++;
+      if (isRight) {
+        instantCorrectCount++;
+        card.classList.add("graded-correct");
+        expBox.className = "explanation-box visible exp-correct";
+        expBox.innerHTML = `<strong>✅ Correct!</strong> ${escapeHtml(question.explanation)}`;
+      } else {
+        card.classList.add("graded-wrong");
+        expBox.className = "explanation-box visible exp-wrong";
+        expBox.innerHTML = `<strong>❌ Not quite.</strong> Correct Answer: <strong>${escapeHtml(question.answer)}</strong>. ${escapeHtml(question.explanation)}`;
+      }
+
+      inputs.forEach(inp => {
+        inp.disabled = true;
+        const lbl = document.getElementById(`lbl-${inp.id}`);
+        if (inp.value === question.answer) {
+          lbl.classList.add("correct-choice");
+        } else if (inp.checked && inp.value !== question.answer) {
+          lbl.classList.add("wrong-choice");
+        }
+      });
+
+      updateProgress();
+      hideNotice();
+    };
+
+    function updateProgress() {
+      const total = activeQuestions.length;
+      const pct = total > 0 ? Math.round((instantAnsweredCount / total) * 100) : 0;
+      const scorePct = instantAnsweredCount > 0 ? Math.round((instantCorrectCount / instantAnsweredCount) * 100) : 0;
+
+      document.getElementById("progressFill").style.width = `${pct}%`;
+      document.getElementById("progressText").textContent = `Answered: ${instantAnsweredCount} / ${total}`;
+      document.getElementById("liveScoreText").textContent = `Live Score: ${instantCorrectCount} / ${instantAnsweredCount} (${scorePct}%)`;
+    }
+
+    function showNotice(msg) {
+      const box = document.getElementById("inlineNotice");
+      box.innerHTML = msg;
+      box.classList.add("visible");
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    window.jumpToUnanswered = function(cardId) {
+      const target = document.getElementById(cardId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        target.style.borderColor = "#f59e0b";
+        setTimeout(() => {
+          if (target.dataset.answered !== "true") target.style.borderColor = "";
+        }, 1800);
+      }
+    };
+
+    function hideNotice() {
+      const box = document.getElementById("inlineNotice");
+      box.classList.remove("visible");
+    }
+
+    /* ==========================================================================
+       FINAL REPORT CARD SUMMARY
+       ========================================================================== */
+    window.gradeQuiz = function() {
+      if (isGraded) return;
+
+      const unanswered = [];
+      activeQuestions.forEach((q, idx) => {
+        const checked = document.querySelector(`input[name="q_${q.id}"]:checked`);
+        if (!checked) unanswered.push({ num: idx + 1, cardId: `card-${q.id}` });
+      });
+
+      if (unanswered.length > 0) {
+        const preview = unanswered.slice(0, 6).map(u => `Q${u.num}`).join(", ");
+        const more = unanswered.length > 6 ? ` (+${unanswered.length - 6} more)` : "";
+        const firstId = unanswered[0].cardId;
+        showNotice(
+          `Please answer all questions before viewing the final report card! Missing (${unanswered.length}): ${preview}${more}. ` +
+          `<button type="button" class="btn btn-primary" style="margin-left:0.5rem;padding:0.35rem 0.75rem;min-height:34px;font-size:0.88rem;" onclick="jumpToUnanswered('${firstId}')">Jump to Q${unanswered[0].num}</button>`
+        );
+        return;
+      }
+
+      isGraded = true;
+      hideNotice();
+
+      let totalCorrect = 0;
+      let mathTotal = 0, mathCorrect = 0;
+      let engTotal = 0, engCorrect = 0;
+
+      activeQuestions.forEach(q => {
+        const card = document.getElementById(`card-${q.id}`);
+        const selectedInput = card.querySelector(`input[name="q_${q.id}"]:checked`);
+        const userVal = selectedInput ? selectedInput.value : "";
+        const isRight = userVal === q.answer;
+
+        if (q.subject === "MATH") {
+          mathTotal++;
+          if (isRight) mathCorrect++;
+        } else {
+          engTotal++;
+          if (isRight) engCorrect++;
+        }
+
+        if (isRight) totalCorrect++;
+      });
+
+      const total = activeQuestions.length;
+      const percentage = Math.round((totalCorrect / total) * 100);
+      const rawName = document.getElementById("studentName").value.trim();
+      const studentLabel = rawName ? `${rawName}'s Final Score` : "Your Final Score";
+
+      let stars = "⭐";
+      let feedbackMsg = "Keep reviewing the Study Module and try again—you are building strong skills!";
+      if (percentage >= 90) {
+        stars = "⭐⭐⭐⭐⭐";
+        feedbackMsg = "Outstanding mastery! You are ready for the Primary 3 Semestral Evaluation!";
+      } else if (percentage >= 75) {
+        stars = "⭐⭐⭐⭐";
+        feedbackMsg = "Great job! Review the highlighted explanations below to aim for 100%.";
+      } else if (percentage >= 50) {
+        stars = "⭐⭐⭐";
+        feedbackMsg = "Good effort! Check the explanations below and revisit the Study Module.";
+      } else {
+        stars = "⭐⭐";
+      }
+
+      document.getElementById("scoreStars").textContent = stars;
+      document.getElementById("scoreStudentLine").textContent = studentLabel;
+      document.getElementById("scoreBig").textContent = `${totalCorrect} / ${total} (${percentage}%)`;
+      document.getElementById("scoreMessage").textContent = feedbackMsg;
+
+      const pills = [];
+      if (mathTotal > 0) pills.push(`<span class="stat-pill">📐 Maths: ${mathCorrect}/${mathTotal}</span>`);
+      if (engTotal > 0) pills.push(`<span class="stat-pill">📚 English: ${engCorrect}/${engTotal}</span>`);
+      document.getElementById("scoreBreakdown").innerHTML = pills.join("");
+
+      const submitBtn = document.getElementById("submitBtn");
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = "0.6";
+      document.getElementById("quizStatusLabel").textContent = `Status: Completed (${percentage}%)`;
+
+      const banner = document.getElementById("scoreBanner");
+      banner.classList.add("visible");
+      banner.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initQuiz();
+    });
+  </script>
+</body>
+</html>
